@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "defaultMode": "default",
+    "additionalDirectories": [
+      "/home/regelepirat/AI-Academy/technical-interviewer-chatbot"
+    ],
+    "deny": [
+      "Edit(//home/regelepirat/AI-Academy/technical-interviewer-chatbot/**)"
+    ]
+  }
+}

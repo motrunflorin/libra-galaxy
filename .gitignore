@@ -26,3 +26,9 @@ node_modules/
 # Logs
 *.log
 logs/
+
+# Tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.next/

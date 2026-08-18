@@ -1,0 +1,48 @@
+# Local development stack: MongoDB + FastAPI + Next.js.
+# Run from the repository root:
+#   docker compose -f infra/docker/docker-compose.yml up --build
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ../..
+      dockerfile: infra/docker/api.Dockerfile
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      LIBRA_ENV: local
+      LIBRA_PERSISTENCE_BACKEND: mongo
+      LIBRA_MONGO_URI: mongodb://mongo:27017
+      LIBRA_MONGO_DATABASE: libra_galaxy
+      LIBRA_LOG_FORMAT: console
+      # Foundry credentials come from your own .env; never commit them.
+      LIBRA_FOUNDRY_ENDPOINT: ${LIBRA_FOUNDRY_ENDPOINT:-}
+      LIBRA_FOUNDRY_API_KEY: ${LIBRA_FOUNDRY_API_KEY:-}
+    ports:
+      - "8000:8000"
+
+  web:
+    build:
+      context: ../..
+      dockerfile: infra/docker/web.Dockerfile
+    depends_on:
+      - api
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8000/api/v1
+    ports:
+      - "3000:3000"
+
+volumes:
+  mongo-data:

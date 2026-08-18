@@ -1,0 +1,25 @@
+{
+  "$comment": "Registered knowledge documents. Every entry declares the governance metadata that retrieval filters and citations depend on. Add a document here, then run: libra knowledge-plan",
+  "documents": [
+    {
+      "id": "using_libra_galaxy_en",
+      "path": "product/using_libra_galaxy.en.md",
+      "title": "Using Libra Galaxy",
+      "document_type": "faq",
+      "language": "en",
+      "version": "1",
+      "audience": "customer",
+      "tags": ["product", "onboarding"]
+    },
+    {
+      "id": "using_libra_galaxy_ro",
+      "path": "product/using_libra_galaxy.ro.md",
+      "title": "Cum folosești Libra Galaxy",
+      "document_type": "faq",
+      "language": "ro",
+      "version": "1",
+      "audience": "customer",
+      "tags": ["product", "onboarding"]
+    }
+  ]
+}
